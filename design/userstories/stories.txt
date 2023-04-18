@@ -1,0 +1,40 @@
+
+1. I want a user to add an author to the database 
+
+Breakdown:
+
+    1. User inputs author data;
+
+        i. name
+
+    2. User sends request (btn click)
+
+    3. POST route for author hit
+
+    4. Route adds author to DB
+
+    5. DB returns author obj with id
+
+    6. Route returns response with attached author obj
+
+2. I want a user to add a book to the database
+
+Breakdown:
+
+    1. User inputs book data;
+
+        i. title
+        ii. author
+        iii. genre
+
+    2. User sends request (btn click)
+
+    3. POST route for books hit (/books/addbook)
+
+    4. Route adds book to DB
+
+    5. DB returns book obj with id
+
+    6. Route returns response with attached book obj
+
+    
