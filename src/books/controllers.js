@@ -1,6 +1,5 @@
 const Book = require("./model");
 
-
 //creates a new book and adds it to the database
 const addBook = async (req, res) => {
   try {
@@ -15,13 +14,30 @@ const addBook = async (req, res) => {
   }
 };
 
-
 //returns a books in the database
 const getAllBooks = async (req, res) => {
   try {
     const books = await Book.findAll();
 
     res.status(201).json({ message: "success", books: books });
+  } catch (error) {
+    console.log(error);
+    res.status(501).json({ message: "Validation error" });
+  }
+};
+
+//returns a single book from the title in the endpoint route
+
+const getSingleBookByTitle = async (req, res) => {
+  const { title } = req.params;
+
+  try {
+    const book = await Book.findOne({ where: { title } });
+    if (!book) {
+      return res.status(404).json({ message: "Book not found" });
+    }
+
+    res.status(200).json({ message: "success", book: book });
   } catch (error) {
     console.log(error);
     res.status(501).json({ message: "Validation error" });
@@ -57,19 +73,17 @@ const deleteBookByTitle = async (req, res) => {
   const { title } = req.body;
 
   try {
-    const book = await Book.findOne({ where: { title } });
+    const book = await Book.destroy({ where: { title } });
     if (!book) {
       return res.status(404).json({ message: "Book not found" });
     }
 
-    await book.destroy();
-    res.status(200).json({ message: "Book deleted successfully", book: book });
+    res.status(201).json({ message: "Book deleted successfully", book: book });
   } catch (error) {
     console.log(error);
     res.status(501).json({ message: "Validation error" });
   }
 };
-
 
 //delete all books in the database
 const deleteAll = async (req, res) => {
@@ -85,6 +99,7 @@ const deleteAll = async (req, res) => {
 module.exports = {
   addBook,
   getAllBooks,
+  getSingleBookByTitle,
   updateBookByTitle,
   deleteBookByTitle,
   deleteAll,
