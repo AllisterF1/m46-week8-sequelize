@@ -1,5 +1,7 @@
 const Book = require("./model");
 
+
+//creates a new book and adds it to the database
 const addBook = async (req, res) => {
   try {
     const book = await Book.create({
@@ -13,17 +15,20 @@ const addBook = async (req, res) => {
   }
 };
 
+
+//returns a books in the database
 const getAllBooks = async (req, res) => {
   try {
-    const allBooks = await Book.findAll();
+    const books = await Book.findAll();
 
-    res.status(201).json({ message: "success", allBooks: allBooks });
+    res.status(201).json({ message: "success", books: books });
   } catch (error) {
     console.log(error);
     res.status(501).json({ message: "Validation error" });
   }
 };
 
+//updates book via searching by title
 const updateBookByTitle = async (req, res) => {
   const { title, newAuthor, newGenre, newTitle } = req.body;
 
@@ -47,6 +52,7 @@ const updateBookByTitle = async (req, res) => {
   }
 };
 
+//deletes all books via title
 const deleteBookByTitle = async (req, res) => {
   const { title } = req.body;
 
@@ -65,22 +71,21 @@ const deleteBookByTitle = async (req, res) => {
 };
 
 
+//delete all books in the database
 const deleteAll = async (req, res) => {
-      
-    try {
-        const book = await Book.findAll();
-      await book.destroy();
-      res.status(200).json({ message: "All books deleted", book: book });
-    } catch (error) {
-      console.log(error);
-      res.status(501).json({ message: "Validation error" });
-    }
-  };
+  try {
+    await Book.destroy({ where: {} });
+    res.status(200).json({ message: "All books deleted" });
+  } catch (error) {
+    console.log(error);
+    res.status(501).json({ message: "Validation error" });
+  }
+};
 
 module.exports = {
   addBook,
   getAllBooks,
   updateBookByTitle,
   deleteBookByTitle,
-  deleteAll
+  deleteAll,
 };
