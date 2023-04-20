@@ -14,7 +14,7 @@ const addBook = async (req, res) => {
   }
 };
 
-//returns a books in the database
+//returns all books in the database
 const getAllBooks = async (req, res) => {
   try {
     const books = await Book.findAll();
@@ -68,7 +68,7 @@ const updateBookByTitle = async (req, res) => {
   }
 };
 
-//deletes all books via title
+//deletes all books via title in url
 const deleteBookByTitle = async (req, res) => {
   const { title } = req.body;
 
@@ -85,7 +85,7 @@ const deleteBookByTitle = async (req, res) => {
   }
 };
 
-//delete all books in the database
+//deletes all books in the database
 const deleteAll = async (req, res) => {
   try {
     await Book.destroy({ where: {} });
