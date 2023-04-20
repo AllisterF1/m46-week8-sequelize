@@ -13,11 +13,12 @@ const app = express();
 app.use(express.json());
 
 //relationships must be declared before the sync functions
+//alter true allows the table to update
 const syncTables = () => {
 
   Author.hasMany(Book);
   Book.belongsTo(Author);
-    Book.sync();
+    Book.sync({ alter: true });
     Author.sync();
 
   

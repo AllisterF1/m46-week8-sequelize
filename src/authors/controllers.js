@@ -1,3 +1,4 @@
+const Book = require("../books/model");
 const Author = require("./model");
 
 //creates a new author and adds it to the database
@@ -33,6 +34,7 @@ const getAuthorAndBooks = async (req, res) => {
   try {
     const author = await Author.findOne({
       where: { authorname: req.params.authorname },
+      include: Book, 
     });
     if (!author) {
       return res.status(404).json({ message: "Author not found" });
