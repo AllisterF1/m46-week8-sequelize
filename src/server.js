@@ -12,9 +12,15 @@ const app = express();
 
 app.use(express.json());
 
+//relationships must be declared before the sync functions
 const syncTables = () => {
+
+  Author.hasMany(Book);
+  Book.belongsTo(Author);
     Book.sync();
     Author.sync();
+
+  
 };
 
 app.use(bookRouter);
