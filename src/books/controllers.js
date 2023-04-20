@@ -6,8 +6,9 @@ const addBook = async (req, res) => {
     const book = await Book.create({
       title: req.body.title,
       author: req.body.author,
-      genre: req.body.genre,
       AuthorId: req.body.AuthorId,
+      genre: req.body.genre,
+      GenreId: req.body.GenreId
     });
     res.status(201).json({ message: "success", book: book });
   } catch (error) {
@@ -69,7 +70,7 @@ const updateBookByTitle = async (req, res) => {
   }
 };
 
-//deletes all books via title in url
+//deletes all books via title 
 const deleteBookByTitle = async (req, res) => {
   const { title } = req.body;
 

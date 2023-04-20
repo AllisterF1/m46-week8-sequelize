@@ -28,7 +28,7 @@ const getAllAuthors = async (req, res) => {
   }
 };
 
-//finds an author by name and returns them - will also bring books after relationship built
+//finds an author by name and returns them along with all books by them
 
 const getAuthorAndBooks = async (req, res) => {
   try {
