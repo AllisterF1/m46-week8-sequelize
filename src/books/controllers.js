@@ -8,11 +8,11 @@ const addBook = async (req, res) => {
       author: req.body.author,
       AuthorId: req.body.AuthorId,
       genre: req.body.genre,
-      GenreId: req.body.GenreId
+      GenreId: req.body.GenreId,
     });
     res.status(201).json({ message: "success", book: book });
   } catch (error) {
-    console.log(error);
+    res.status(501).json({ message: "Validation error", error });
   }
 };
 
@@ -23,8 +23,7 @@ const getAllBooks = async (req, res) => {
 
     res.status(201).json({ message: "success", books: books });
   } catch (error) {
-    console.log(error);
-    res.status(501).json({ message: "Validation error" });
+    res.status(501).json({ message: "Validation error", error });
   }
 };
 
@@ -41,8 +40,7 @@ const getSingleBookByTitle = async (req, res) => {
 
     res.status(200).json({ message: "success", book: book });
   } catch (error) {
-    console.log(error);
-    res.status(501).json({ message: "Validation error" });
+    res.status(501).json({ message: "Validation error", error });
   }
 };
 
@@ -65,12 +63,11 @@ const updateBookByTitle = async (req, res) => {
 
     res.status(200).json({ message: "Book updated successfully", book: book });
   } catch (error) {
-    console.log(error);
-    res.status(501).json({ message: "Validation error" });
+    res.status(501).json({ message: "Validation error", error });
   }
 };
 
-//deletes all books via title 
+//deletes all books via title
 const deleteBookByTitle = async (req, res) => {
   const { title } = req.body;
 
@@ -82,8 +79,7 @@ const deleteBookByTitle = async (req, res) => {
 
     res.status(201).json({ message: "Book deleted successfully", book: book });
   } catch (error) {
-    console.log(error);
-    res.status(501).json({ message: "Validation error" });
+    res.status(501).json({ message: "Validation error", error });
   }
 };
 
@@ -93,8 +89,7 @@ const deleteAll = async (req, res) => {
     await Book.destroy({ where: {} });
     res.status(200).json({ message: "All books deleted" });
   } catch (error) {
-    console.log(error);
-    res.status(501).json({ message: "Validation error" });
+    res.status(501).json({ message: "Validation error", error });
   }
 };
 
