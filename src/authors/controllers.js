@@ -11,8 +11,7 @@ const addAuthor = async (req, res) => {
       .status(201)
       .json({ message: "success, author has been created", author: author });
   } catch (error) {
-    console.log(error);
-    res.status(501).json({ message: "Validation error" });
+    res.status(501).json({ message: "Validation error", error });
   }
 };
 
@@ -23,8 +22,7 @@ const getAllAuthors = async (req, res) => {
 
     res.status(201).json({ message: "success", authors: authors });
   } catch (error) {
-    console.log(error);
-    res.status(501).json({ message: "Validation error" });
+    res.status(501).json({ message: "Validation error", error });
   }
 };
 
@@ -34,7 +32,7 @@ const getAuthorAndBooks = async (req, res) => {
   try {
     const author = await Author.findOne({
       where: { authorname: req.params.authorname },
-      include: Book, 
+      include: Book,
     });
     if (!author) {
       return res.status(404).json({ message: "Author not found" });
@@ -42,8 +40,7 @@ const getAuthorAndBooks = async (req, res) => {
 
     res.status(200).json({ message: "success", author: author });
   } catch (error) {
-    console.log(error);
-    res.status(501).json({ message: "Validation error" });
+    res.status(501).json({ message: "Validation error", error });
   }
 };
 
@@ -61,8 +58,7 @@ const deleteAuthorByName = async (req, res) => {
       .status(201)
       .json({ message: "Author deleted successfully", author: author });
   } catch (error) {
-    console.log(error);
-    res.status(501).json({ message: "Validation error" });
+    res.status(501).json({ message: "Validation error", error });
   }
 };
 
@@ -72,8 +68,7 @@ const deleteAllAuthors = async (req, res) => {
     await Author.destroy({ where: {} });
     res.status(200).json({ message: "All authors deleted" });
   } catch (error) {
-    console.log(error);
-    res.status(501).json({ message: "Validation error" });
+    res.status(501).json({ message: "Validation error", error });
   }
 };
 
