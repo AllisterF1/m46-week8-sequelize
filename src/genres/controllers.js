@@ -1,5 +1,5 @@
 const Book = require("../books/model");
-const Genre  = require("./model");
+const Genre = require("./model");
 
 //creates a new genre and adds it to the database
 const addGenre = async (req, res) => {
@@ -11,8 +11,7 @@ const addGenre = async (req, res) => {
       .status(201)
       .json({ message: "success, genre has been created", genre: genre });
   } catch (error) {
-    console.log(error);
-    res.status(501).json({ message: "Validation error" });
+    res.status(501).json({ message: "Validation error", error });
   }
 };
 
@@ -21,10 +20,9 @@ const getAllGenres = async (req, res) => {
   try {
     const genres = await Genre.findAll();
 
-    res.status(201).json({ message: "success", genres : genres });
+    res.status(201).json({ message: "success", genres: genres });
   } catch (error) {
-    console.log(error);
-    res.status(501).json({ message: "Validation error" });
+    res.status(501).json({ message: "Validation error", error });
   }
 };
 
@@ -34,7 +32,7 @@ const getGenreAndBooks = async (req, res) => {
   try {
     const genre = await Genre.findOne({
       where: { genre: req.params.genre },
-      include: Book, 
+      include: Book,
     });
     if (!genre) {
       return res.status(404).json({ message: "Genre not found" });
@@ -42,15 +40,12 @@ const getGenreAndBooks = async (req, res) => {
 
     res.status(200).json({ message: "success", genre: genre });
   } catch (error) {
-    console.log(error);
-    res.status(501).json({ message: "Validation error" });
+    res.status(501).json({ message: "Validation error", error });
   }
 };
 
-
 module.exports = {
-   addGenre,
-   getAllGenres,
-   getGenreAndBooks
-  };
-  
+  addGenre,
+  getAllGenres,
+  getGenreAndBooks,
+};
